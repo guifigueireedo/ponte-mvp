@@ -63,41 +63,30 @@ class Emblema(BaseModel):
 
 
 class Jovem(Document):
-
     user_id: str
-
-   
     nome: str
     sobrenome: str
     foto_perfil: Optional[str] = None
     data_nascimento: Optional[date] = None
     cep: Optional[str] = None
-
    
     formacoes: List[Formacao] = []
 
-    # Carreira (HU03)
     carreira: Optional[Carreira] = None
     area_carreira: Optional[AreaCarreira] = None
 
-    # Gamificação (HU04)
     xp: int = 0
     nivel: NivelEnum = NivelEnum.iniciante
     emblemas: List[Emblema] = []
 
-
     hard_skills: List[HardSkill] = []
     soft_skills: List[SoftSkill] = []
-
-
     
     mensagens_semana: int = 0
     ultima_resetagem_mensagens: Optional[datetime] = None
-
     
     ativo: bool = True
     criado_em: datetime = datetime.utcnow()
     atualizado_em: datetime = datetime.utcnow()
-
     class Settings:
         name = "jovens"

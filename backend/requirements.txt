@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+motor
+beanie
+pydantic[email]
+python-dotenv
+bcrypt

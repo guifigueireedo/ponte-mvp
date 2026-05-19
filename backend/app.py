@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
@@ -16,17 +17,18 @@ load_dotenv()
 MONGODB_URL = os.getenv("MONGODB_URL")
 DATABASE_NAME = os.getenv("DATABASE_NAME", "ponte-mvp")
 
+if not MONGODB_URL:
+    raise ValueError("⚠️ ERRO: MONGODB_URL não encontrada! Verifique o seu arquivo .env na raiz do projeto.")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Conecta ao MongoDB na inicialização
     client = AsyncIOMotorClient(MONGODB_URL)
     await init_beanie(
         database=client[DATABASE_NAME],
         document_models=[User, Jovem, Desafio]
     )
     yield
-    # Fecha conexão ao encerrar
     client.close()
 
 
@@ -36,8 +38,14 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# --- Rotas ---
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(chat.router, prefix="/chat", tags=["Chat"])
 app.include_router(feed.router, prefix="/feed", tags=["Feed"])

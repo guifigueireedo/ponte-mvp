@@ -1,5 +1,5 @@
 // quando Pedro terminar o backend, troca a URL e muda MOCK_MODE pra false
-const API_URL   = "https://url-da-api-pedro.com/salvar";
+const API_URL = "http://127.0.0.1:8000/auth/cadastro/jovem";
 const MOCK_MODE = true;
 
 

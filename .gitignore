@@ -1,5 +1,3 @@
-/backend/__pycache__/
-/apresentacao/backend/__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -13,3 +11,14 @@ venv/
 env/
 .idea/
 .vscode/
+.venv/
+venv/
+ENV/
+env/
+.env
+.env.local
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
